@@ -1,9 +1,8 @@
 from django.db import models
 
 class Name(models.Model):
-    title_choice = models.TextChoices('mr','ms')
      
-    title = models.CharField(blank=True, choices=title_choice.choices, max_length=2)
+    title = models.CharField(max_length=10, null=False)
     first = models.CharField(max_length=50, null=False)
     last = models.CharField(max_length=50, null=False)
     
@@ -39,8 +38,8 @@ class Location(models.Model):
      city = models.CharField(max_length=50, null=False)
      state = models.CharField(max_length=50, null=False)
      postcode = models.CharField(max_length=10, null=False)
-     coordinates = models.OneToOneField(Coordinates)
-     timezone = models.OneToOneField(Timezone)
+     coordinates = models.OneToOneField(Coordinates, on_delete=models.CASCADE)
+     timezone = models.OneToOneField(Timezone, on_delete=models.CASCADE)
      
      def getLocation (self):
          return {
@@ -52,6 +51,15 @@ class Location(models.Model):
              'longitude': self.coordinates.getCoordinate()['longitude'],
              'offset': self.timezone.getTimezone()['offset'],
              'description': self.timezone.getTimezone()['description'],
+         }
+         
+     def getLocationSpecific (self):
+         return {
+             'street':self.street,
+             'city':self.city,
+             'state':self.state,
+             'postcode':self.postcode,
+             'coordinates': self.coordinates.getCoordinate()
          }
          
 class Login(models.Model):
@@ -67,6 +75,13 @@ class Login(models.Model):
         return {
             'uuid': self.uuid,
             'username': self.username,
+        }
+    
+    def getLoginWitpass (self):
+        return {
+            'uuid': self.uuid,
+            'username': self.username,
+            'password': self.password,
         }
         
 class Dob(models.Model):
@@ -104,9 +119,6 @@ class Picture(models.Model):
     medium = models.URLField(max_length=200, null=True)
     thumbnail = models.URLField(max_length=200, null=True)
     
-    def __str__(self):
-        return self.thumbnail
-    
     def getPicture (self):
         return {
             'large': self.large,
@@ -122,21 +134,36 @@ class UsersInfo(models.Model):
     phone = models.CharField(max_length=20, null=True)
     cell = models.CharField(max_length=20, null=True)
     nat = models.CharField(max_length=10, null=False)
-    name = models.OneToOneField(Name)
-    location = models.OneToOneField(Location)
-    login = models.OneToOneField(Login)
-    dob = models.OneToOneField(Dob)
-    registered = models.OneToOneField(Registered)
-    id_info = models.OneToOneField(Id)
-    picture = models.OneToOneField(Picture)
+    name = models.OneToOneField(Name, on_delete=models.CASCADE)
+    location = models.OneToOneField(Location, on_delete=models.CASCADE)
+    login = models.OneToOneField(Login, on_delete=models.CASCADE)
+    dob = models.OneToOneField(Dob, on_delete=models.CASCADE)
+    registered = models.OneToOneField(Registered, on_delete=models.CASCADE)
+    id_info = models.OneToOneField(Id, on_delete=models.CASCADE)
+    picture = models.OneToOneField(Picture, on_delete=models.CASCADE)
     
     
     def getUserInfo (self):
         return {
-            'name': self.name,
+            'name': self.name.getName(),
             'email': self.email,
             'login': self.login.getLogin(),
             'registered': self.registered.getRegistered(),
-            'picture': self.picture
+            'picture': self.picture.getPicture()['thumbnail']
+        }
+        
+    def getAllInfo (self):
+        return {
+            'gender': self.gender,
+            'name': self.name.getName(),
+            'location': self.location.getLocationSpecific(),
+            'email': self.email,
+            'login': self.login.getLoginWitpass(),
+            'dob': self.dob.getDod(),
+            'registered': self.registered.getRegistered(),
+            'phone': self.phone,
+            'cell': self.cell,
+            'picture': self.picture.getPicture()['thumbnail'],
+            'nat': self.nat,
         }
     

@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'manage_user.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ing_test',
+        'NAME': 'inge_test_fi',
         'USER': 'postgres',
         'PASSWORD': 'finoana',
         'HOST': 'localhost',
