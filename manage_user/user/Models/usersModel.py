@@ -1,3 +1,4 @@
+import re
 from django.db import models
 
 class Name(models.Model):
@@ -75,6 +76,7 @@ class Login(models.Model):
         return {
             'uuid': self.uuid,
             'username': self.username,
+            'passwordstrength': checkPassWordStrength(self.password)
         }
     
     def getLoginWitpass (self):
@@ -82,6 +84,7 @@ class Login(models.Model):
             'uuid': self.uuid,
             'username': self.username,
             'password': self.password,
+            'passwordstrength': checkPassWordStrength(self.password)
         }
         
 class Dob(models.Model):
@@ -166,4 +169,25 @@ class UsersInfo(models.Model):
             'picture': self.picture.getPicture()['thumbnail'],
             'nat': self.nat,
         }
+        
+
+    ###################################### FOR PASSWORD ############################################
+def swithForPass(key):
+    tab_res = {'0':1, '1':2, '2':2, '3':3, '4':3, '5':4, '6':5, '7':6, '8':7, '9':8, '10':9}
+    return tab_res.get(key, None)
+
+def checkPassWordStrength(password):
+    print(password)
+    reg_all = "(^[0-9]*$)|(^[a-z]*$)|(^[A-Z]*$)|(^[a-z0-9]*$)|(^[A-Z0-9]*$)|(^[a-zA-Z]*$)|(^[a-zA-Z0-9]*$)|(^\W+$)|(\W+[a-zA-Z0-9]{1}$)|(\W+[a-zA-Z0-9]{2}$)|(\W+[a-zA-Z0-9]*$)"
+    search = re.search(reg_all,password)
+    try:
+        groups_tuple = search.groups()
+        list_group = list(groups_tuple)
+        stregth = 0
+        for i,value in enumerate(list_group):
+            if value != None:
+                stregth = swithForPass(str(i))
+    except Exception as e:
+        stregth = "error format password"
+    return stregth
     

@@ -25,6 +25,6 @@ def findRandomUser(request):
             ##save user random
             user_manager = UserManager()
             user_add = user_manager.addUser(result['results'])
-        resutl = {'user_add': user_add}
+        resutl = {'user_add': user_add, 'result': all_user_random['content'] }
         return Response(data=resutl, content_type='JSON', status=status_returns)
         
