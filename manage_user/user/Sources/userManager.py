@@ -35,7 +35,7 @@ class UserManager():
                 exec_other_info = f'{other_info_str["pure_code"]}\nusersInfo=UsersInfo.objects.create({other_info_str["for_create"]}location=location)\nusersInfo.save()'
                 final_str = exec_location +'\n' + exec_other_info
                 user_add = user_add + 1 
-                # exec(final_str)
+                exec(final_str)
             except Exception as e:
                 print(e)
                 
