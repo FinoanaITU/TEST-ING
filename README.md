@@ -15,8 +15,10 @@
 
 => "python manage.py runserver migrate"
 
+-Run server "python manage.py runserver 127.0.0.1:4641"
+
 
 # PS
--Toutes les fonctionnalités sont disponibles dans le fichier Test-ing.postman_collection.json (requette pour POSTMAN)
+-Toutes les fonctionnalités sont disponibles dans le fichier Test-ing.postman_collection.json (requête pour POSTMAN)
 
--La requette "Import and save randomUser" enregistre tout les user dupuis randomuser mais en cas de besoin, utiliser "ing_test_fi.sql"
+-La requête "Import and save randomUser" enregistre tout les user dupuis randomuser mais en cas de besoin, utiliser "ing_test_fi.sql"
