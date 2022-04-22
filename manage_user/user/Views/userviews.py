@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from user.Sources.userManager import UserManager
+from django.views.decorators.csrf import csrf_exempt
 
 def checkFormat(url):
     format = 'JSON'
@@ -11,6 +12,7 @@ def checkFormat(url):
         format = 'XML'
     return format
 
+@csrf_exempt
 @api_view(['GET'])
 def getAllUser(request):
     if request.method == 'GET':
@@ -25,7 +27,8 @@ def getAllUser(request):
         except Exception as e:
             result =  Response( data = {'error':str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return result
-    
+
+@csrf_exempt    
 @api_view(['GET'])
 def filterUser(request, uuid):
     if request.method == 'GET':
