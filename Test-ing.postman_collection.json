@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "547319c5-eca0-4df2-83fc-3e753aec5f48",
+		"name": "Test-ing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Import and save randomUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:4641/api/users/import?seed=finoanaITU&country=fr&count=500",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4641",
+					"path": [
+						"api",
+						"users",
+						"import"
+					],
+					"query": [
+						{
+							"key": "seed",
+							"value": "finoanaITU"
+						},
+						{
+							"key": "country",
+							"value": "fr"
+						},
+						{
+							"key": "count",
+							"value": "500"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:4641/api/users",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4641",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by uuid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:4641/api/users/e0e816c5-6bca-4251-83b2-7e596a0db919",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4641",
+					"path": [
+						"api",
+						"users",
+						"e0e816c5-6bca-4251-83b2-7e596a0db919"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user complex filter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:4641/api/users?gender=female&location.city=argenteuil&name.first=sandra",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4641",
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "female"
+						},
+						{
+							"key": "location.city",
+							"value": "argenteuil"
+						},
+						{
+							"key": "name.first",
+							"value": "sandra"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all user with format",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/users.xml",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users.xml"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

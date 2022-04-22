@@ -17,4 +17,4 @@
 
 
 # PS
-Toutes les fonctionnalités sont disponibles dans le fichier (requette pour POSTMAN)
+Toutes les fonctionnalités sont disponibles dans le fichier Test-ing.postman_collection.json (requette pour POSTMAN)
