@@ -17,4 +17,6 @@
 
 
 # PS
-Toutes les fonctionnalités sont disponibles dans le fichier Test-ing.postman_collection.json (requette pour POSTMAN)
+-Toutes les fonctionnalités sont disponibles dans le fichier Test-ing.postman_collection.json (requette pour POSTMAN)
+
+-La requette "Import and save randomUser" enregistre tout les user dupuis randomuser mais en cas de besoin, utiliser "ing_test_fi.sql"
