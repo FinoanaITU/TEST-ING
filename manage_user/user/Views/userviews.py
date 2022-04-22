@@ -1,25 +1,42 @@
+import re
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from user.Sources.userManager import UserManager
 
+def checkFormat(url):
+    format = 'JSON'
+    check = re.search('xml', url)
+    if check != None:
+        format = 'XML'
+    return format
+
 @api_view(['GET'])
 def getAllUser(request):
     if request.method == 'GET':
-        data = request.GET
-        print(data)
-        print(bool(data))
-        user_manager = UserManager()
-        # all_user = user_manager.getAllUser()
-        all_user = user_manager.getAllUser() if bool(data) == False else user_manager.getUserComplexFilter(dict(data))
-        
-        return Response(data=all_user, content_type='JSON', status=status.HTTP_200_OK)
+        result = ''
+        try:
+            data = request.GET
+            url = request.build_absolute_uri()
+            format = checkFormat(url)
+            user_manager = UserManager()
+            all_user = user_manager.getAllUser() if bool(data) == False else user_manager.getUserComplexFilter(dict(data))
+            result = Response(data=all_user, content_type=format, status=status.HTTP_200_OK)
+        except Exception as e:
+            result =  Response( data = {'error':str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return result
     
 @api_view(['GET'])
 def filterUser(request, uuid):
     if request.method == 'GET':
-        user_manager = UserManager()
-        user = user_manager.getUserByUuid(uuid)
-        
-        return Response(data=user, content_type='JSON', status=status.HTTP_200_OK)
+        result = ''
+        try:
+            user_manager = UserManager()
+            user = user_manager.getUserByUuid(uuid)
+            url = request.build_absolute_uri()
+            format = checkFormat(url)
+            result = Response(data=user, content_type=format, status=status.HTTP_200_OK)
+        except Exception as e:
+            result =  Response( data = {'error':str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return result
     

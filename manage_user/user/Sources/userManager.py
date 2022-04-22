@@ -46,33 +46,15 @@ class UserManager():
         result = []
         for user in all_user:
             user_data = user.getUserInfo()
-            # pass_stregth = self.checkPassWordStrength(user.login.password)
-            # user_data['login']['passwordstrength'] = pass_stregth
             result.append(user_data)
         return result
     
     def getUserByUuid(self, uuid):
         user = UsersInfo.objects.filter(login__uuid=uuid).get()
         user_data = user.getAllInfo()
-        # pass_stregth = self.checkPassWordStrength(user_data['login']['password'])
-        # user_data['login']['passwordstrength'] = pass_stregth
+      
         return user_data
     
-    # def swithForPass(self, key):
-    #     tab_res = {'0':1, '1':2, '2':2, '3':3, '4':3, '5':4, '6':5, '7':6, '8':7, '9':8, '10':9}
-    #     return tab_res.get(key, None)
-    
-    # def checkPassWordStrength(self, password):
-    #     reg_all = '(^[0-9]*$)|(^[a-z]*$)|(^[A-Z]*$)|(^[a-z0-9]*$)|(^[A-Z0-9]*$)|(^[a-zA-Z]*$)|(^[a-zA-Z0-9]*$)|(^\W+$)|(\W+[a-zA-Z0-9]{1}$)|(\W+[a-zA-Z0-9]{2}$)|(\W+[a-zA-Z0-9]*$)'
-    #     search = re.search(reg_all,password)
-    #     groups_tuple = search.groups()
-    #     list_group = list(groups_tuple)
-    #     stregth = 0
-    #     for i,value in enumerate(list_group):
-    #         if value != None:
-    #             stregth = self.swithForPass(str(i))
-        
-    #     return stregth
     
     def getUserComplexFilter(self, data_filter):
         str_filter = ''

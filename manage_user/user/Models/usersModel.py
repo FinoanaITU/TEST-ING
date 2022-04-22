@@ -177,7 +177,6 @@ def swithForPass(key):
     return tab_res.get(key, None)
 
 def checkPassWordStrength(password):
-    print(password)
     reg_all = "(^[0-9]*$)|(^[a-z]*$)|(^[A-Z]*$)|(^[a-z0-9]*$)|(^[A-Z0-9]*$)|(^[a-zA-Z]*$)|(^[a-zA-Z0-9]*$)|(^\W+$)|(\W+[a-zA-Z0-9]{1}$)|(\W+[a-zA-Z0-9]{2}$)|(\W+[a-zA-Z0-9]*$)"
     search = re.search(reg_all,password)
     try:
